@@ -2,5 +2,5 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/Threejs-test/", // Replace 'repo-name' with your repository name
+  base: "/Threejs-VR/", // Replace '/repo-name/' with your repository name
 });
