@@ -21,7 +21,7 @@ const tempMatrix = new THREE.Matrix4();
 init();
 
 function init() {
-  const container = document.createElement("div");
+  const container = document.getElementById("threejs-container");
   document.body.appendChild(container);
 
   camera = new THREE.PerspectiveCamera(
@@ -80,14 +80,14 @@ function init() {
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(800, 600);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1;
   renderer.xr.enabled = true; // Enable XR on the renderer
   baseReferenceSpace = renderer.xr.getReferenceSpace();
   container.appendChild(renderer.domElement);
 
-  document.body.appendChild(VRButton.createButton(renderer)); // Add VRButton to the document
+  container.appendChild(VRButton.createButton(renderer)); // Add VRButton to the container
 
   // Initialize group
   group = new THREE.Group();
@@ -173,10 +173,11 @@ function init() {
 }
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  const container = document.getElementById("threejs-container");
+  camera.aspect = container.clientWidth / container.clientHeight;
   camera.updateProjectionMatrix();
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(800, 600);
 
   render();
 }

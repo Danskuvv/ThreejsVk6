@@ -3,13 +3,84 @@
   <head>
     <meta charset="utf-8" />
     <title>My first three.js app</title>
-    <style>
-      body {
-        margin: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      type="module"
+      src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
+    ></script>
   </head>
   <body>
+    <nav>
+      <button onclick="scrollToSection('model-viewer-section')">
+        ModelViewer
+      </button>
+      <button onclick="scrollToSection('threejs-container')">Threejs</button>
+    </nav>
+    <div id="model-viewer-section" class="section">
+      <select id="model-variant-selector" onchange="changeModelVariant()">
+        <option value="models/360kenkä.gltf">Clean</option>
+        <option value="models/360kenkä2.gltf">Dirty</option>
+      </select>
+      <model-viewer
+        id="model-viewer"
+        src="models/360kenkä.gltf"
+        alt="A 3D model"
+        auto-rotate
+        camera-controls
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        tone-mapping="neutral"
+        poster="poster.webp"
+        shadow-intensity="0"
+        shadow-softness="1"
+        environment-image="images/pillars_1k.hdr"
+        skybox-image="images/pillars_1k.hdr"
+        exposure="0.65"
+      >
+        <button
+          class="Hotspot"
+          slot="hotspot-1"
+          data-position="0.7011175965272924m -0.38654993316143393m 2.2434180470821765m"
+          data-normal="0.7156979404694226m -0.2280304976919029m 0.660135251391872m"
+          data-visibility-attribute="visible"
+        >
+          <div class="HotspotAnnotation">Kengän nauhat</div>
+        </button>
+        <button
+          class="Hotspot"
+          slot="hotspot-2"
+          data-position="5.305641189737038m -0.7022147687915634m 1.2302427250816255m"
+          data-normal="0.0422642768055695m -0.8832026565993975m 0.46708328837785335m"
+          data-visibility-attribute="visible"
+        >
+          <div class="HotspotAnnotation">Maaliläikkä</div>
+        </button>
+        <button
+          class="Hotspot"
+          slot="hotspot-3"
+          data-position="0.21169964658293328m 0.10895444039178592m -1.9821151343995247m"
+          data-normal="0.1938505819048985m 0.5969434298277738m -0.7785117169834928m"
+          data-visibility-attribute="visible"
+        >
+          <div class="HotspotAnnotation">Adidas pohjateksti</div>
+        </button>
+        <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+      </model-viewer>
+    </div>
+    <div id="threejs-container" class="section"></div>
     <script type="module" src="/main.js"></script>
+    <script>
+      function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+      }
+
+      function changeModelVariant() {
+        const selector = document.getElementById("model-variant-selector");
+        const modelViewer = document.getElementById("model-viewer");
+        modelViewer.src = selector.value;
+      }
+    </script>
   </body>
 </html>
